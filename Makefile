@@ -1,11 +1,11 @@
-CXX= g++
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lthor
-CFLAGS=
+CXX = g++
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+CFLAGS = 
 
-all: viz
+all: GAME.exe
 
-viz: demo.cpp
-	$(CXX) $(CFLAGS) demo.cpp -o GAME.exe $(LIBS)
+GAME.exe: main.cpp SelectBox.cpp
+	$(CXX) $(CFLAGS) -o $@ $^ $(LIBS)
 
 clean:
 	rm *.exe
