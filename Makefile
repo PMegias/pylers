@@ -1,5 +1,5 @@
 CXX= g++
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lthor
 CFLAGS=
 
 all: viz
