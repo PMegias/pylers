@@ -11,25 +11,21 @@
 */
 
 
-
-
-
-
-
 Todo en C++
 Viz con SFML
 
 class LiveGame {
     b_matrix state(100,100,false); //100x100
     
-    b_matrix STEP(const b_matrix& current_state) {
+    b_matrix STEP(const b_matrix& current_state) { //De momento no guuardamos estados anteriores
         b_matrix new_state;
         // aeaeaeaeae
         return new_state;
-    }
+
 
 public:
     void STEP() {
+
         state = STEP(state);
     }
 
@@ -46,6 +42,7 @@ class Game {
     float FPS = 60.f;
     int onestep = 0;
     LiveGame lv;
+    RenderWindow window;
 
     void events() {
         if ("user pressed start")   state_initialized = true;
@@ -62,11 +59,12 @@ class Game {
     void draw() {
         b_matrix state = lv.getstate();
         visualiza_la_magia_de_la_vida(state);
+
     }
 
 public:
     void run() {
-        while (1)
+        while (window.isOpen())
         events()
         // cada 60 fps
         if (elapsedtime >= 1/FPS) {
@@ -77,8 +75,7 @@ public:
             elapsedtime = 0
         }
     }
-
-    
+  
 };
 
 int main(int argc, char ** argv) {
