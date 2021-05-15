@@ -14,7 +14,7 @@ void GameScene::onInit()
 
     f_font.loadFromFile(FONT_FILE);
 
-    b_pause = false;
+    b_pause = true;
     b_lost_focus = false;
 
     float scale = 1.f;
@@ -37,6 +37,9 @@ void GameScene::onInit()
     position.y += buttons_margin;
     sb_reset = SelectBox(scale, width, height, position, s_reset, f_font, offset);
 
+    sp_poblation.setPosition(sf::Vector2f(1250, 10));
+    sp_births.setPosition(sf::Vector2f(1250, 410));
+    sp_deaths.setPosition(sf::Vector2f(1250, 810));
 }
 
 void GameScene::onResume()
@@ -96,6 +99,18 @@ void GameScene::draw(sf::RenderWindow& window)
     sb_switch_mode.draw(window);
     sb_reset.draw(window);
 
+    sf::Texture texturep, textureb, textured;
+    texturep.loadFromFile(s_plot_file_pobl);
+    textureb.loadFromFile(s_plot_file_pobl);
+    textured.loadFromFile(s_plot_file_pobl);
+    sp_poblation.setTexture(texturep);
+    sp_births.setTexture(textureb);
+    sp_deaths.setTexture(textured);
+
+    window.draw(sp_poblation);
+    window.draw(sp_births);
+    // window.draw(sp_deaths);
+
     lg_game.draw(window);
 }
 
@@ -124,7 +139,7 @@ void GameScene::generate_plots(){
     pobl_file << std::to_string(lg_game.get_population()) + "\n";
     pobl_file.close();
 
-    std::string argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png ;
+    std::string argv = "gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png;
     system(argv.c_str());
 
     //argv = "display " + pobl_png;

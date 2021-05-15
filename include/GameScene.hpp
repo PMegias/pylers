@@ -42,6 +42,12 @@ private:
     bool        b_lost_focus;
 
     LiveGame    lg_game;
+
+    sf::Sprite  sp_poblation;
+    sf::Sprite  sp_births;
+    sf::Sprite  sp_deaths;
+
+    const std::string s_plot_file_pobl = "res/poblacion.png";
 };
 
 #endif // GAME_SCENE_HPP
