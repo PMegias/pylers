@@ -25,6 +25,7 @@ private:
 	sf::Font	f_font;
 
 	SelectBox   sb_play;
+    SelectBox   sb_random;
 	SelectBox	sb_exit;
 
     LiveGame    lg_setup;

@@ -15,7 +15,9 @@ void MainMenu::onInit()
     float buttons_margin = 75.f;
 	sf::Vector2f position = { 1050.f, 85.f };
 	sb_play = SelectBox(1.f, w, h, position, s_play, f_font, { 40.5f, 15.f });
-	position.y += buttons_margin * 5;
+    position.y += buttons_margin;
+    sb_random = SelectBox(1.f, w, h, position, s_random, f_font, { 25.f, 15.f });
+	position.y += buttons_margin * 4;
 	sb_exit = SelectBox(1.f, w, h, position, s_exit, f_font, { 47.5f, 15.f });
 
 	lg_setup.set_grid(true);
@@ -44,6 +46,7 @@ void MainMenu::draw(sf::RenderWindow& window)
 {
     lg_setup.draw(window);
 	sb_play.draw(window);
+    sb_random.draw(window);
 	sb_exit.draw(window);
 }
 
@@ -55,6 +58,7 @@ void MainMenu::processEvent(const sf::Event& event, sf::RenderWindow& window)
 		g_game.setActiveScene(scene);
 		scene->set_live_game(state);
     }
+    else if (sb_random.clicked(window, event)) lg_setup.randomize_state();
 	else if (sb_exit.clicked(window, event))
 		end();
 
