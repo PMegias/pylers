@@ -2,12 +2,17 @@
 #define CONFIGURATION_HPP
 
 #pragma once
+#include <omp.h>
+#include <iostream>
+#include <stdlib.h>
 
 const std::string TITLE = "Te liveo la vida";
 
+
+
 const std::string FONT_FILE = "res/fonts/font.ttf";
 
-const float FPS = 20.f;
+const float FPS = 30.f;
 
 const int WINDOW_WIDTH = 1900;
 const int WINDOW_HEIGHT = 1000;
@@ -15,8 +20,8 @@ const int WINDOW_HEIGHT = 1000;
 const int SIMULATION_HEIGHT = 1000;
 const int SIMULATION_WIDTH = 1000;
 
-const int N = 150;
-const int M = 150;
+const int N = 100;
+const int M = 100;
 
 // int population;
 // int birth;

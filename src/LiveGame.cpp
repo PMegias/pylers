@@ -49,11 +49,8 @@ bool LiveGame::check_rules(int x, int y)
         if(bm_state[mod(x-1)][mod(i)]) cont++;
         if(bm_state[mod(x)][mod(i)]) cont++;
         if(bm_state[mod(x+1)][mod(i)]) cont++;
-    }/*
-    if(!state[x][y] and cont == 3) return true; // norma 3
-    else if(state[x][y] and (cont==3 or cont==4)) return true;
-    return false;
-    */
+    }
+    
     if(!bm_state[x][y] and cont == 3){
         i_birth++;
         i_population++;
@@ -74,8 +71,12 @@ b_matrix LiveGame::update_state()
     i_death = 0;
     i_population = 0;
     b_matrix new_state(N, b_vector(M, false));
+    int j;
+    //#pragma omp parallel for private(j)
+    #pragma omp simd private(j)
     for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < M; ++j) {
+        for (j = 0; j < M; ++j) {
+            //std::cout << omp_get_thread_num() << std::endl;
             new_state[i][j] = check_rules(i, j);
         }
     }

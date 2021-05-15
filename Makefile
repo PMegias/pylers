@@ -1,6 +1,6 @@
 CXX = g++
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system
-CFLAGS = -O3
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lgomp
+CFLAGS = -O3 -fopenmp
 INCLUDE = include
 SRC = src
 
