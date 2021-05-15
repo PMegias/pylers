@@ -1,7 +1,8 @@
 #include "Game.hpp"
+#include <fstream>
 #include <iostream>
 
-Game::Game() : s_activeScene(nullptr), s_backgroundScene(nullptr) {}
+Game::Game() : s_activeScene(nullptr), s_backgroundScene(nullptr) {} 
 
 Game::~Game()
 {
