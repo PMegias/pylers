@@ -124,6 +124,10 @@ void GameScene::generate_plots(){
     pobl_file << std::to_string(lg_game.get_population()) + "\n";
     pobl_file.close();
 
-    //std::string argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png ;
+    std::string argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png ;
+    system(argv.c_str());
+
+    //argv = "display " + pobl_png;
     //system(argv.c_str());
 }
+

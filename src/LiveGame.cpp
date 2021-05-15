@@ -44,6 +44,7 @@ int mod (int a)
 bool LiveGame::check_rules(int x, int y)
 {
     int cont = 0;
+    
     for(int i = y-1; i <= y+1; ++i){
         if(bm_state[mod(x-1)][mod(i)]) cont++;
         if(bm_state[mod(x)][mod(i)]) cont++;
@@ -60,7 +61,7 @@ bool LiveGame::check_rules(int x, int y)
     } else {
         if(bm_state[x][y] and (cont==3 or cont==4)) {
             i_population++;
-             return true;
+            return true;
         }
         else i_death++;
     }
