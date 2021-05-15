@@ -32,9 +32,22 @@ const std::string s_no_grid = "No grid";
 
 const std::string s_switch_colors = "Switch\nColors";
 
+CONFLICT (content): Merge conflict in res/poblacion.csv
 const std::string s_reset = "Reset";
 
 const std::string PLOTTER_FILE = "res/plotter.gnp";
 const std::string PLOT_FILE = "/tmp/plot.png";
+
+const std::string pobl_csv = "res/poblacion.csv";
+const std::string pobl_png = "res/poblacion.png";
+const std::string pobl_ftitle = "poblacion";
+
+const std::string naci_csv = "res/nacimiento.csv";
+const std::string naci_png = "res/nacimiento.png";
+const std::string naci_ftitle = "nacimiento";
+
+const std::string mort_csv = "res/morticion.csv";
+const std::string mort_png = "res/morticion.png";
+const std::string mort_ftitle = "morticion";
 
 #endif // CONFIGURATION_HPP
