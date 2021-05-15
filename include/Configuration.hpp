@@ -7,7 +7,7 @@ const std::string TITLE = "Te liveo la vida";
 
 const std::string FONT_FILE = "res/fonts/font.ttf";
 
-const float FPS = 10.f;
+const float FPS = 25.f;
 
 const int WINDOW_WIDTH = 1900;
 const int WINDOW_HEIGHT = 1000;
@@ -32,7 +32,6 @@ const std::string s_no_grid = "No grid";
 
 const std::string s_switch_colors = "Switch\nColors";
 
-CONFLICT (content): Merge conflict in res/poblacion.csv
 const std::string s_reset = "Reset";
 
 const std::string PLOTTER_FILE = "res/plotter.gnp";

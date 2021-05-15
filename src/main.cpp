@@ -12,7 +12,7 @@ int main() {
                         pobl_csv +" " +  pobl_png;
     
     std::cout << argv << std::endl;
-    system(argv.c_str());
+    //system(argv.c_str());
 
 
     return 0;

@@ -1,4 +1,4 @@
-#include "GameScene.hpp"
+#include "GameScene.hpp"                                                                                              
 
 #include <fstream>
 #include <unistd.h>
@@ -18,7 +18,7 @@ void GameScene::onInit()
     b_lost_focus = false;
 
     float scale = 1.f;
-    float width = 150, height = 75;
+    float width = 150, height = 75; 
     sf::Vector2f position = { 1050.f, 10.f };
     sf::Vector2f offset = { 20.f, 5.f };
     float buttons_margin = 75.f;
@@ -43,11 +43,11 @@ void GameScene::onInit()
 }
 
 void GameScene::onResume()
-{               
+{    
     Scene::onResume();
     std::cout << "onResume : GameScene" << std::endl;
-}   
-    
+} 
+
 void GameScene::onPause()
 {
     Scene::onPause();
@@ -118,33 +118,38 @@ void GameScene::draw(sf::RenderWindow& window)
 void GameScene::update()
 {
     if (!b_pause) {
-        lg_game.update();
-        generate_plots();
+        int days = lg_game.get_days();
+        int population = lg_game.get_population();
+        int naci = lg_game.get_birth();
+        int mort = lg_game.get_death();        
+
+        sf::Thread thread(&LiveGame::update, &lg_game);
+        thread.launch();
+        generate_plots(days, population, naci, mort);
+        //lg_game.update();
+        //thread.wait();
     }
 }
 
 
 
-void GameScene::generate_plots(){
+void GameScene::generate_plots(int days, int population, int naci, int mort){
 
+    std::string argv;
+    
     // Plots de poblacion DATOS
     std::ofstream pobl_file(pobl_csv, std::ios_base::app);
-    pobl_file << std::to_string(lg_game.get_days()) + ",";
-    pobl_file << std::to_string(lg_game.get_population()) + "\n";
+    pobl_file << std::to_string(days) + ",";
+    pobl_file << std::to_string(population) + "\n";
     pobl_file.close();
-<<<<<<< HEAD
-    std::string argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png ;
-=======
-
-    std::string argv = "gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png;
->>>>>>> a48d90b00e5923d308917cad999fd4806fb81c20
+    argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png;
     system(argv.c_str());
 
 
     //Datos de Nacis-mientos
     std::ofstream naci_file(naci_csv, std::ios_base::app);
-    naci_file << std::to_string(lg_game.get_days()) + ",";
-    naci_file << std::to_string(lg_game.get_population()) + "\n";
+    naci_file << std::to_string(days) + ",";
+    naci_file << std::to_string(naci) + "\n";
     naci_file.close();
     argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png ;
     system(argv.c_str());
@@ -152,10 +157,11 @@ void GameScene::generate_plots(){
 
     // Datos de Morticiones
     std::ofstream mort_file(mort_csv, std::ios_base::app);
-    mort_file << std::to_string(lg_game.get_days()) + ",";
-    mort_file << std::to_string(lg_game.get_population()) + "\n";
+    mort_file << std::to_string(days) + ",";
+    mort_file << std::to_string(mort) + "\n";
     mort_file.close();
     argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png ;
     system(argv.c_str());
+
 }
 
