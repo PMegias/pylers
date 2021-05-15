@@ -1,3 +1,6 @@
+#ifndef SELECT_BOX_HPP
+#define SELECT_BOX_HPP
+
 #pragma once
 #include <SFML/Graphics.hpp>
 
@@ -21,3 +24,5 @@ private:
 
 	sf::Vector2f		v2f_offset;
 };
+
+#endif // SELECT_BOX_HPP

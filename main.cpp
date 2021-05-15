@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <random>
-#include "SelectBox.h"
+#include "SelectBox.hpp"
 #include "Configuration.hpp"
 
 using namespace std;
@@ -20,7 +20,16 @@ b_matrix state;
 rs_matrix squares;
 sb_buttons buttons;
 
-int pipae[2];
+/* int pipae[2]; */
+
+bool show_grid = false;
+bool modo_epilepsia_activado = false;
+int population;
+int birth;
+int death;
+int dias;
+bool pause = true;
+bool lost_focus = false;
 
 void draw(RenderWindow& window, const b_matrix& state, rs_matrix& squares) {
     int r = rand() % 256;
@@ -139,11 +148,11 @@ void draw_all(RenderWindow& window) {
 
     buttons[0].set_text(to_string(dias));
 
-    if(pause) buttons[1].set_text(s_Resume);
-    else buttons[1].set_text(s_Pausa);
+    if(pause) buttons[1].set_text(s_resume);
+    else buttons[1].set_text(s_pause);
     
-    if (show_grid) buttons[2].set_text(s_NoGrid);
-    else buttons[2].set_text(s_AddGrid);
+    if (show_grid) buttons[2].set_text(s_no_grid);
+    else buttons[2].set_text(s_add_grid);
 
     for (auto button : buttons) {
         button.draw(window);
@@ -162,15 +171,15 @@ void draw_plots()
 
 
 int main() {
-    pipe(pipae);
-    int pid = fork();
-    if (pid != 0){
+    /* pipe(pipae); */
+    /* int pid = fork(); */
+    /* if (pid != 0){ */
 
-        exec("");
+    /*     exec(""); */
 
-        exit(0)
+    /*     exit(0) */
         
-        }
+    /*     } */
     
 
     state = b_matrix(N, b_vector(M, false));
@@ -190,7 +199,7 @@ int main() {
         }
     } // Aqui indicamos dónde va cada cuadro dentro de la ventana del juego
 
-    RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Demo", Style::Titlebar | Style::Close);
+    RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE, Style::Titlebar | Style::Close);
 
     Event event;
     Clock clk;
@@ -206,11 +215,12 @@ int main() {
 
     buttons.push_back(SelectBox(1, width_b1, heigh_b1, posb1, to_string(dias), font, off_b1)); // boton con el contador de dias
     buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 915), "Start", font, Vector2f(20, 5))); // boton pause / resume
-    buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 500), s_AddGrid, font, Vector2f(20, 5)));
-    buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 200),"Switch Colors", font, Vector2f(20,5)));
+    buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 500), s_add_grid, font, Vector2f(20, 5)));
+    buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 200),"Switch\nColors", font, Vector2f(20,5)));
     buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 300),"Reset", font, Vector2f(20,5)));
     
-   
+    bool redraw = true;
+
     while(window.isOpen()) {
 
         if (clk.getElapsedTime().asSeconds() >= 1.f / FPS) {

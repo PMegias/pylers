@@ -1,2 +1,5 @@
 .vscode/
 GAME.exe
+*.swp
+test
+build
