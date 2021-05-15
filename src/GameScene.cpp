@@ -37,8 +37,8 @@ void GameScene::onInit()
     sb_reset = SelectBox(scale, width, height, position, s_reset, f_font, offset);
 
     sp_poblation.setPosition(sf::Vector2f(1250, 10));
-    sp_births.setPosition(sf::Vector2f(1250, 410));
-    sp_deaths.setPosition(sf::Vector2f(1250, 810));
+    sp_births.setPosition(sf::Vector2f(1250, 310));
+    sp_deaths.setPosition(sf::Vector2f(1250, 610));
 }
 
 void GameScene::onResume()
@@ -62,16 +62,6 @@ void GameScene::onEnd()
     
 void GameScene::processEvent(const sf::Event& event, sf::RenderWindow& window)
 {
-    /* if (event.type == sf::Event::KeyPressed) { */
-    /*     if (event.key.code == sf::Keyboard::Escape) { */
-    /*         pause(); */
-    /*         g_game.setActiveScene(Scene::create(g_game, Scene::PAUSE)); */
-    /*     } */      
-    /* } */
-
-    /* b_background.processEvents(event); */
-    /* p_player.processEvents(event, window); */
-
     if (sb_pause.clicked(window, event)) b_pause = !b_pause;
     if (sb_grid.clicked(window, event)) lg_game.set_grid(!lg_game.get_grid());
     if (sb_switch_mode.clicked(window, event)) lg_game.set_epilepsia(!lg_game.get_epilepsia());
@@ -100,19 +90,19 @@ void GameScene::draw(sf::RenderWindow& window)
     sb_reset.draw(window);
 
     sf::Texture texturep, textureb, textured;
-    if (texturep.loadFromFile(s_plot_file_pobl)) {
+    if (texturep.loadFromFile(pobl_png)) {
         sp_poblation.setTexture(texturep);
         window.draw(sp_poblation);
     }
 
-    if (textureb.loadFromFile(s_plot_file_pobl)) {
+    if (textureb.loadFromFile(naci_png)) {
         sp_births.setTexture(textureb);
         window.draw(sp_births);
     }
 
-    if (textured.loadFromFile(s_plot_file_pobl)) {
-        sp_births.setTexture(textured);
-        /* window.draw(sp_deaths); */
+    if (textured.loadFromFile(mort_png)) {
+        sp_deaths.setTexture(textured);
+        window.draw(sp_deaths);
     }
     
     lg_game.draw(window);
@@ -139,7 +129,7 @@ void GameScene::update()
 void GameScene::generate_plots(int days, int population, int naci, int mort){
 
     std::string argv;
-
+    int ret;
     // Plots de poblacion DATOS
     std::ofstream pobl_file(pobl_csv, std::ofstream::out | std::ofstream::app);
     pobl_file << std::to_string(days) + ",";
@@ -154,7 +144,7 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     naci_file << std::to_string(days) + ",";
     naci_file << std::to_string(naci) + "\n";
     naci_file.close();
-    argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png ;
+    argv = "gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png ;
     system(argv.c_str());
 
 
@@ -163,7 +153,7 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     mort_file << std::to_string(days) + ",";
     mort_file << std::to_string(mort) + "\n";
     mort_file.close();
-    argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png ;
+    argv = "gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png ;
     system(argv.c_str());
 
 }

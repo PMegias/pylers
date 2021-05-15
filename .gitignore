@@ -3,3 +3,5 @@ GAME.exe
 *.swp
 test
 build
+res/*.csv
+res/*.png
