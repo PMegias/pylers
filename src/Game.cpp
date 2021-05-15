@@ -90,6 +90,11 @@ void Game::setBackgroundScene(Scene* scene)
     s_backgroundScene = scene;
 }
 
+Scene* Game::getActiveScene() const
+{
+    return s_activeScene;
+}
+
 void Game::scene()
 {
     if (s_activeScene) {

@@ -13,11 +13,11 @@ LiveGame::LiveGame()
     bm_state = b_matrix(N, b_vector(M, false));
     rsm_squares = rs_matrix(N, rs_vector(M, sf::RectangleShape(sf::Vector2f(SIMULATION_WIDTH / N, SIMULATION_HEIGHT / M))));
 
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < M; ++j) {
-            if (i == 0 || j == 0) bm_state[i][j] = true;
-        }
-    }
+    // for (int i = 0; i < N; ++i) {
+    //     for (int j = 0; j < M; ++j) {
+    //         if (i == 0 || j == 0) bm_state[i][j] = true;
+    //     }
+    // }
 
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < M; ++j) {
@@ -190,4 +190,24 @@ int LiveGame::get_death() const
 int LiveGame::get_days() const
 {
     return i_days;
+}
+
+bool LiveGame::get_state(int i, int j) const
+{
+    return bm_state[i][j];
+}
+
+b_matrix LiveGame::get_full_state() const
+{
+    return bm_state;
+}
+
+void LiveGame::set_state(int i, int j, bool value)
+{
+    bm_state[i][j] = value;
+}
+
+void LiveGame::set_state(const b_matrix& state)
+{
+    bm_state = state;
 }

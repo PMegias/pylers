@@ -17,6 +17,8 @@ public:
     void                setActiveScene(Scene*);
     void                setBackgroundScene(Scene*);
 
+    Scene*              getActiveScene() const;
+
     sf::Clock           getClock();
 
 private:

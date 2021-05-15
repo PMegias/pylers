@@ -13,7 +13,9 @@ void Scene::onEnd()     {}
         
 void Scene::update()    {}
 void Scene::draw(sf::RenderWindow&) {}
-void Scene::processEvent(const sf::Event&, sf::RenderWindow&)   {}
+void Scene::processEvent(const sf::Event&, sf::RenderWindow&) {}
+
+void Scene::set_live_game(b_matrix& ) {}
         
 void Scene::init()
 {           

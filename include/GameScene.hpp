@@ -25,6 +25,8 @@ public:
     void        update() final;
     void        generate_plots(int, int, int, int);
 
+    void        set_live_game(b_matrix& ) final;
+
 private:
 
     sf::Time    t_frameTime;

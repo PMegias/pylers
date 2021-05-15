@@ -3,6 +3,8 @@
 
 #pragma once
 #include "SelectBox.hpp"
+#include "LiveGame.hpp"
+
 
 #include <SFML/Graphics.hpp>
 
@@ -22,6 +24,8 @@ public:
     virtual void        update();
     virtual void        draw(sf::RenderWindow&);
     virtual void        processEvent(const sf::Event&, sf::RenderWindow&);
+
+    virtual void        set_live_game(b_matrix& );
 
     void                init();
     void                pause();

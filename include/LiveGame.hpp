@@ -43,6 +43,11 @@ public:
     int get_death() const;
     int get_days() const;
 
+    bool get_state(int, int) const;
+    b_matrix get_full_state() const;
+    void set_state(int, int, bool);
+    void set_state(const b_matrix& );
+
 private:
 
     b_matrix bm_state;

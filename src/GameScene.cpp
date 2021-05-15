@@ -25,7 +25,7 @@ void GameScene::onInit()
     sb_days = SelectBox(scale, width, height, position, "0", f_font, offset);
     
     position.y += buttons_margin;
-    sb_pause = SelectBox(scale, width, height, position, s_pause, f_font, offset);
+    sb_pause = SelectBox(scale, width, height, position, s_play, f_font, offset);
 
     position.y += buttons_margin;
     sb_grid = SelectBox(scale, width, height, position, s_add_grid, f_font, offset);;
@@ -72,7 +72,12 @@ void GameScene::processEvent(const sf::Event& event, sf::RenderWindow& window)
     if (sb_grid.clicked(window, event)) lg_game.set_grid(!lg_game.get_grid());
     if (sb_switch_mode.clicked(window, event)) lg_game.set_epilepsia(!lg_game.get_epilepsia());
     if (sb_reset.clicked(window, event)) lg_game.reset();
-    if (sb_main_menu.clicked(window, event)) g_game.setActiveScene(Scene::create(g_game, Scene::MAIN_MENU));
+    if (sb_main_menu.clicked(window, event)) {
+        b_matrix state = lg_game.get_full_state();
+        auto scene = Scene::create(g_game, Scene::MAIN_MENU);
+        g_game.setActiveScene(scene);
+        scene->set_live_game(state);
+    }
     if (sb_exit.clicked(window, event)) end();
 
     lg_game.processEvent(event, window);
@@ -80,7 +85,9 @@ void GameScene::processEvent(const sf::Event& event, sf::RenderWindow& window)
 
 void GameScene::draw(sf::RenderWindow& window)
 {
-    if (b_pause) {
+    if (lg_game.get_days() == 0) {
+        sb_pause.set_text(s_play);
+    } else if (b_pause) {
         sb_pause.set_text(s_resume);
     } else {
         sb_pause.set_text(s_pause);
@@ -168,3 +175,7 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
 
 }
 
+void GameScene::set_live_game(b_matrix& lg)
+{
+    lg_game.set_state(lg);
+}
