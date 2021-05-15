@@ -23,6 +23,7 @@ public:
     void        processEvent(const sf::Event&, sf::RenderWindow&) final;
     void        draw(sf::RenderWindow&) final;
     void        update() final;
+    void        generate_plots();
 
 private:
 

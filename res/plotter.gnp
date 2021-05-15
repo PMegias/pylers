@@ -1,0 +1,13 @@
+# gnuplot -c TITLE DATASET PNGNAME
+
+dataset=ARG2
+
+set title ARG1
+# set key autotitle columnhead
+set datafile sep ','
+
+set xlabel 'iteration'
+set ylabel '# '.ARG1
+set term png
+set output ARG3
+plot "<(tail -n5 ".dataset.")" u 1:2 w l notitle

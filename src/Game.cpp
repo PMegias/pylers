@@ -1,6 +1,5 @@
 #include "Game.hpp"
 #include <iostream>
-#include <unistd.h>
 
 Game::Game() : s_activeScene(nullptr), s_backgroundScene(nullptr) {}
 
@@ -41,7 +40,6 @@ void Game::mainLoop()
         events();
 
         if (b_redraw) {
-            generate_plots();
             update();
             draw();
             b_redraw = false;
@@ -51,22 +49,7 @@ void Game::mainLoop()
     }
 }
 
-void Game::generate_plots(){
-    int pid = fork();
-    if (pid != 0){
-        // int execv(const char *pathname, char *const argv[]);
-        // char * argv[] = {" -e \"set term png ; set output 'plot.png' ; plot sin(x)\"" };
-        //char * argv[];
-        // int ret = execv("/bin/gnuplot", argv );
-        //execv("ls", argv );
-        //std::cout << "exec ret " << ret << std::endl;
-        std::cout << "HIJI "  << std::endl;
-        exit(0);
-    }
-     //padre espera aqui por ejemplo
-    std::cout << "PAPI " << std::endl;
 
-}
 
 void Game::events()
 {   

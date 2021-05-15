@@ -26,3 +26,6 @@ All other live cells die in the next generation. Similarly, all other dead cells
 - 2 escenas: configuracion + simulacion
 - recolectar info poblacion //DONE
 - plot de datos
+
+# POBLACION.CSV
+iteracion,# poblacion

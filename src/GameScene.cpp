@@ -1,5 +1,9 @@
 #include "GameScene.hpp"
 
+#include <fstream>
+#include <unistd.h>
+
+
 GameScene::GameScene(Game& game) : Scene(game) {}
 GameScene::~GameScene() {}
 
@@ -32,6 +36,7 @@ void GameScene::onInit()
 
     position.y += buttons_margin;
     sb_reset = SelectBox(scale, width, height, position, s_reset, f_font, offset);
+
 }
 
 void GameScene::onResume()
@@ -96,5 +101,29 @@ void GameScene::draw(sf::RenderWindow& window)
 
 void GameScene::update()
 {
-    if (!b_pause) lg_game.update();
+    if (!b_pause) {
+        lg_game.update();
+        generate_plots();
+    }
+}
+
+
+
+void GameScene::generate_plots(){
+    //char argv[100] = { "/bin/gnuplot " + PLOTTER_FILE };
+
+    //Fichero de poblacion (ya irá a otra funcion a aparte)
+    std::string pobl_csv = "res/poblacion.csv";
+    std::string pobl_png = "res/poblacion.png";
+    std::string pobl_ftitle = "poblacion";
+    //Formate del fichero de salida
+    //std::ofstream pobl_file(pobl_ftitle, std::ios_base::app);
+    std::ofstream pobl_file(pobl_csv, std::ios_base::app);
+    //pobl_file << "iteracion,poblacion";
+    pobl_file << std::to_string(lg_game.get_days()) + ",";
+    pobl_file << std::to_string(lg_game.get_population()) + "\n";
+    pobl_file.close();
+
+    //std::string argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png ;
+    //system(argv.c_str());
 }

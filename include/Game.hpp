@@ -23,7 +23,6 @@ private:
     void                init();
     void                mainLoop();
 
-    void                generate_plots();
     void                update();
     void                draw();
     void                events();
