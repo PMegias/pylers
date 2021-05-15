@@ -51,7 +51,7 @@ bool LiveGame::check_rules(int x, int y)
         if(bm_state[mod(x)][mod(i)]) cont++;
         if(bm_state[mod(x+1)][mod(i)]) cont++;
     }
-    
+
     if(!bm_state[x][y] and cont == 3){
         i_birth++;
         i_population++;
@@ -59,11 +59,24 @@ bool LiveGame::check_rules(int x, int y)
     } else {
         if(bm_state[x][y] and (cont==3 or cont==4)) {
             i_population++;
-            return true;
+             return true;
         }
-        else i_death++;
+        else if(bm_state[x][y]) i_death++;
     }
     return false;
+    
+    /* if(!bm_state[x][y] and cont == 3){ */
+    /*     i_birth++; */
+    /*     i_population++; */
+    /*     return true; */
+    /* } else { */
+    /*     if(bm_state[x][y] and (cont==3 or cont==4)) { */
+    /*         i_population++; */
+    /*         return true; */
+    /*     } */
+    /*     else i_death++; */
+    /* } */
+    /* return false; */
 }
 
 b_matrix LiveGame::update_state()
