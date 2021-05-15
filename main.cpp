@@ -16,20 +16,11 @@ typedef vector<rs_vector> rs_matrix;        // El objeto dibujable por SFML
 
 typedef vector<SelectBox> sb_buttons;       // Los botoncicos
 
-//#define N 50
-//#define M 50
 b_matrix state;
 rs_matrix squares;
 sb_buttons buttons;
 
-int population;
-int birth;
-int death;
-bool redraw = false;
-int dias = 0;
-bool pause = false;
-bool lost_focus = false;
-
+int pipae[2];
 
 void draw(RenderWindow& window, const b_matrix& state, rs_matrix& squares) {
     int r = rand() % 256;
@@ -37,8 +28,12 @@ void draw(RenderWindow& window, const b_matrix& state, rs_matrix& squares) {
     int b = rand() % 256;
     for (int i = 0; i < N; ++i) {
         for(int j = 0; j < M; ++j) {
-            squares[i][j].setOutlineColor(Color::White);
-            squares[i][j].setOutlineThickness(1.f);
+            if (show_grid) {   
+                squares[i][j].setOutlineColor(Color::White);
+                squares[i][j].setOutlineThickness(1.f);
+            } else {
+                squares[i][j].setOutlineThickness(0.f);
+            }
 
             if (state[i][j]) {
                 if (modo_epilepsia_activado) squares[i][j].setFillColor(Color(r, g, b));
@@ -53,7 +48,7 @@ void draw(RenderWindow& window, const b_matrix& state, rs_matrix& squares) {
 
 /*
 void draw_graphic(){
-    population += birth - death;
+    
 }
 */
 
@@ -93,18 +88,29 @@ int mod (int a)
 
 bool check_normas(int x, int y){ // Como la matriz es global, exploramos desde el centro, la celula
     int cont = 0;
-
+    birth = 0;
+    death = 0;
+    population = 0;
     for(int i = y-1; i <= y+1; ++i){
         if(state[mod(x-1)][mod(i)]) cont++;
         if(state[mod(x)][mod(i)]) cont++;
         if(state[mod(x+1)][mod(i)]) cont++;
-    }
+    }/*
     if(!state[x][y] and cont == 3) return true; // norma 3
     else if(state[x][y] and (cont==3 or cont==4)) return true;
     return false;
-    /*
-    
     */
+    if(!state[x][y] and cont == 3){
+        birth++;
+        population++;
+        return true;
+    } else {
+        if(state[x][y] and (cont==3 or cont==4)) {population++; return true;}
+        else death++;
+    }
+    return false;
+    
+    
 }
 
 b_matrix update() {
@@ -125,26 +131,55 @@ void simulation() {
 }
 
 void draw_all(RenderWindow& window) {
+    RectangleShape separator(Vector2f(10, WINDOW_HEIGHT));
+    separator.setPosition(Vector2f(1000, 0));
+
     window.clear();
     draw(window, state, squares);
+
     buttons[0].set_text(to_string(dias));
+
     if(pause) buttons[1].set_text(s_Resume);
     else buttons[1].set_text(s_Pausa);
-    buttons[0].draw(window);
-    buttons[1].draw(window);
+    
+    if (show_grid) buttons[2].set_text(s_NoGrid);
+    else buttons[2].set_text(s_AddGrid);
+
+    for (auto button : buttons) {
+        button.draw(window);
+    }
+
+    window.draw(separator);
+
     window.display();
 }
 
+
+void draw_plots()
+{
+
+}
+
+
 int main() {
+    pipe(pipae);
+    int pid = fork();
+    if (pid != 0){
+
+        exec("");
+
+        exit(0)
+        
+        }
     
 
     state = b_matrix(N, b_vector(M, false));
     squares = rs_matrix(N, rs_vector(M, RectangleShape(Vector2f(SIMULATION_WIDTH / N, SIMULATION_HEIGHT / M))));
 
     //todo blanco
-    /*for(int i = 0; i < N; ++i)
+    for(int i = 0; i < N; ++i)
         for(int j = 0; j < M; ++j)
-            if (i==0 or j == 0) state[i][j] = true;*/
+            if (i==0 or j == 0) state[i][j] = true;
 
     //state[20][30]=state[20][31]=state[20][32]=state[19][32]=state[18][31]=true; // :3
 
@@ -169,9 +204,13 @@ int main() {
     font.loadFromFile("res/fonts/font.ttf");
 
 
-    buttons.push_back(SelectBox(1, width_b1, heigh_b1,posb1, to_string(dias), font, off_b1)); // boton con el contador de dias
-    buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 915), s_Pausa, font, Vector2f(20, 5))); // boton pause / resume
-
+    buttons.push_back(SelectBox(1, width_b1, heigh_b1, posb1, to_string(dias), font, off_b1)); // boton con el contador de dias
+    buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 915), "Start", font, Vector2f(20, 5))); // boton pause / resume
+    buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 500), s_AddGrid, font, Vector2f(20, 5)));
+    buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 200),"Switch Colors", font, Vector2f(20,5)));
+    buttons.push_back(SelectBox(1, width_b1, heigh_b1, Vector2f(1050, 300),"Reset", font, Vector2f(20,5)));
+    
+   
     while(window.isOpen()) {
 
         if (clk.getElapsedTime().asSeconds() >= 1.f / FPS) {
@@ -182,7 +221,10 @@ int main() {
         while(window.pollEvent(event)) {
             if (event.type == Event::Closed) window.close();
             if (buttons[1].clicked(window, event)) pause = !pause;
-
+            if (buttons[2].clicked(window, event)) show_grid = !show_grid;
+            if (buttons[3].clicked(window, event)) modo_epilepsia_activado = !modo_epilepsia_activado;
+            if (buttons[4].clicked(window, event)) state = b_matrix(N, b_vector(M, false));
+            
             if (event.type == Event::LostFocus) pause = true, lost_focus = true;
             if (event.type == Event::GainedFocus && lost_focus) pause = false, lost_focus = false;
 
@@ -196,8 +238,8 @@ int main() {
                     y /= SIMULATION_WIDTH / M;
 
                     state[x][y] = true;
-                    std::cout << "mouse x: " << x << std::endl;
-                    std::cout << "mouse y: " << y << std::endl;
+                    //std::cout << "mouse x: " << x << std::endl;
+                    //std::cout << "mouse y: " << y << std::endl;
                 }
             }
         }
