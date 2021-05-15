@@ -1,7 +1,7 @@
 #include "GameScene.hpp"                                                                                              
 #include <fstream>
 #include <unistd.h>
-
+#include <cmath>
 
 GameScene::GameScene(Game& game) : Scene(game) {}
 GameScene::~GameScene() {}
@@ -19,10 +19,9 @@ void GameScene::onInit()
     float scale = 1.f;
     float width = 150, height = 75; 
     sf::Vector2f position = { 1050.f, 10.f };
-    sf::Vector2f offset = { 20.f, 5.f };
     float buttons_margin = 75.f;
 
-    sb_days = SelectBox(scale, width, height, position, "0", f_font, { 55.f, 15.f });
+    sb_days = SelectBox(scale, width, height, position, "0", f_font, { 67.5f, 15.f });
     
     position.y += buttons_margin;
     sb_pause = SelectBox(scale, width, height, position, s_play, f_font, { 40.5f, 15.f });
@@ -31,10 +30,10 @@ void GameScene::onInit()
     sb_grid = SelectBox(scale, width, height, position, s_add_grid, f_font, { 10.f, 15.f });
     
     position.y += buttons_margin;
-    sb_switch_mode = SelectBox(scale, width, height, position, s_switch_colors, f_font, offset);;
+    sb_switch_mode = SelectBox(scale, width, height, position, s_switch_colors, f_font, { 25.f, 5.f });
 
     position.y += buttons_margin;
-    sb_reset = SelectBox(scale, width, height, position, s_reset, f_font, offset);
+    sb_reset = SelectBox(scale, width, height, position, s_reset, f_font, { 30.f, 15.f });
 
     position.y += buttons_margin;
     sb_main_menu = SelectBox(scale, width, height, position, s_main_menu, f_font, { 35.f, 2.5f });
@@ -87,16 +86,26 @@ void GameScene::draw(sf::RenderWindow& window)
 {
     if (lg_game.get_days() == 0) {
         sb_pause.set_text(s_play);
+        sb_pause.set_offset(sf::Vector2f(40.5f, 15.f));
     } else if (b_pause) {
         sb_pause.set_text(s_resume);
+        sb_pause.set_offset(sf::Vector2f(22.5f, 15.f));
     } else {
         sb_pause.set_text(s_pause);
+        sb_pause.set_offset(sf::Vector2f(30.f, 15.f));
     }
 
     if (lg_game.get_grid()) sb_grid.set_text(s_no_grid);
     else sb_grid.set_text(s_add_grid);
 
-    sb_days.set_text(std::to_string(lg_game.get_days()));
+    int days = lg_game.get_days();
+    sb_days.set_text(std::to_string(days));
+    sf::Vector2f offset = { 67.5f, 15.f };
+    if (days > 0) {
+        int decimales = floor(log(days) / log(10));
+        offset.x -= 7.5f * decimales;
+    }
+    sb_days.set_offset(offset);
 
     sb_days.draw(window);
     sb_pause.draw(window);
@@ -146,13 +155,13 @@ void GameScene::update()
 void GameScene::generate_plots(int days, int population, int naci, int mort){
 
     std::string argv;
-    int ret;
+    std::string max_population = std::to_string(N * N);
     // Plots de poblacion DATOS
     std::ofstream pobl_file(pobl_csv, std::ofstream::out | std::ofstream::app);
     pobl_file << std::to_string(days) + ",";
     pobl_file << std::to_string(population) + "\n";
     pobl_file.close();
-    argv = "gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png;
+    argv = "gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png + " " + max_population;
     system(argv.c_str());
 
 
@@ -161,7 +170,7 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     naci_file << std::to_string(days) + ",";
     naci_file << std::to_string(naci) + "\n";
     naci_file.close();
-    argv = "gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png ;
+    argv = "gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png + " " + max_population;
     system(argv.c_str());
 
 
@@ -170,7 +179,7 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     mort_file << std::to_string(days) + ",";
     mort_file << std::to_string(mort) + "\n";
     mort_file.close();
-    argv = "gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png ;
+    argv = "gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png + " " + max_population;
     system(argv.c_str());
 
 }
