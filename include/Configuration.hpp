@@ -9,7 +9,7 @@ const std::string FONT_FILE = "res/fonts/font.ttf";
 
 const float FPS = 10.f;
 
-const int WINDOW_WIDTH = 1400;
+const int WINDOW_WIDTH = 1900;
 const int WINDOW_HEIGHT = 1000;
 
 const int SIMULATION_HEIGHT = 1000;
