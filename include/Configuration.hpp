@@ -7,7 +7,7 @@ const std::string TITLE = "Te liveo la vida";
 
 const std::string FONT_FILE = "res/fonts/font.ttf";
 
-const float FPS = 25.f;
+const float FPS = 20.f;
 
 const int WINDOW_WIDTH = 1900;
 const int WINDOW_HEIGHT = 1000;
@@ -15,8 +15,8 @@ const int WINDOW_HEIGHT = 1000;
 const int SIMULATION_HEIGHT = 1000;
 const int SIMULATION_WIDTH = 1000;
 
-const int N = 100;
-const int M = 100;
+const int N = 150;
+const int M = 150;
 
 // int population;
 // int birth;

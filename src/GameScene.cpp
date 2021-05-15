@@ -136,7 +136,7 @@ void GameScene::update()
 void GameScene::generate_plots(int days, int population, int naci, int mort){
 
     std::string argv;
-    
+    int ret;
     // Plots de poblacion DATOS
     std::ofstream pobl_file(pobl_csv, std::ios_base::app);
     pobl_file << std::to_string(days) + ",";
