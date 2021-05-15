@@ -1,5 +1,4 @@
 #include "GameScene.hpp"                                                                                              
-
 #include <fstream>
 #include <unistd.h>
 
@@ -101,17 +100,21 @@ void GameScene::draw(sf::RenderWindow& window)
     sb_reset.draw(window);
 
     sf::Texture texturep, textureb, textured;
-    texturep.loadFromFile(s_plot_file_pobl);
-    textureb.loadFromFile(s_plot_file_pobl);
-    textured.loadFromFile(s_plot_file_pobl);
-    sp_poblation.setTexture(texturep);
-    sp_births.setTexture(textureb);
-    sp_deaths.setTexture(textured);
+    if (texturep.loadFromFile(s_plot_file_pobl)) {
+        sp_poblation.setTexture(texturep);
+        window.draw(sp_poblation);
+    }
 
-    window.draw(sp_poblation);
-    window.draw(sp_births);
-    // window.draw(sp_deaths);
+    if (textureb.loadFromFile(s_plot_file_pobl)) {
+        sp_births.setTexture(textureb);
+        window.draw(sp_births);
+    }
 
+    if (textured.loadFromFile(s_plot_file_pobl)) {
+        sp_births.setTexture(textured);
+        /* window.draw(sp_deaths); */
+    }
+    
     lg_game.draw(window);
 }
 
@@ -138,29 +141,29 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     std::string argv;
     int ret;
     // Plots de poblacion DATOS
-    std::ofstream pobl_file(pobl_csv, std::ios_base::app);
+    std::ofstream pobl_file(pobl_csv, std::ofstream::out | std::ofstream::app);
     pobl_file << std::to_string(days) + ",";
     pobl_file << std::to_string(population) + "\n";
     pobl_file.close();
-    argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png;
+    argv = "gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png;
     system(argv.c_str());
 
 
     //Datos de Nacis-mientos
-    std::ofstream naci_file(naci_csv, std::ios_base::app);
+    std::ofstream naci_file(naci_csv, std::ofstream::out | std::fstream::app);
     naci_file << std::to_string(days) + ",";
     naci_file << std::to_string(naci) + "\n";
     naci_file.close();
-    argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png ;
+    argv = "gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png ;
     system(argv.c_str());
 
 
     // Datos de Morticiones
-    std::ofstream mort_file(mort_csv, std::ios_base::app);
+    std::ofstream mort_file(mort_csv, std::ofstream::out | std::fstream::app);
     mort_file << std::to_string(days) + ",";
     mort_file << std::to_string(mort) + "\n";
     mort_file.close();
-    argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png ;
+    argv = "gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png ;
     system(argv.c_str());
 
 }

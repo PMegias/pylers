@@ -128,6 +128,7 @@ void LiveGame::update()
 void LiveGame::reset()
 {
     bm_state = b_matrix(N, b_vector(M, false));
+    i_days = 0;
 }
 
 bool LiveGame::get_grid() const
