@@ -12,9 +12,5 @@ test: main.cpp $(SRC)/SelectBox.cpp
 build: $(SRC)/*.cpp
 	$(CXX) $(CFLAGS) -o $@ $^ $(LIBS) -I$(INCLUDE)
 
-
-GAME.exe: main.cpp SelectBox.cpp
-	$(CXX) $(CFLAGS) -o $@ $^ $(LIBS) -I$(INCLUDE)
-
 clean:
 	rm test build

@@ -34,4 +34,6 @@ const std::string s_switch_colors = "Switch\nColors";
 
 const std::string s_reset = "Reset";
 
+const std::string PLOT_FILE = "/tmp/plot.png";
+
 #endif // CONFIGURATION_HPP

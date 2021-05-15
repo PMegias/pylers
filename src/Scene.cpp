@@ -11,7 +11,7 @@ void Scene::onResume()  {}
 void Scene::onPause()   {}
 void Scene::onEnd()     {}
         
-void Scene::update()        {}
+void Scene::update()    {}
 void Scene::draw(sf::RenderWindow&) {}
 void Scene::processEvent(const sf::Event&, sf::RenderWindow&)   {}
         
