@@ -22,13 +22,13 @@ void GameScene::onInit()
     sf::Vector2f offset = { 20.f, 5.f };
     float buttons_margin = 75.f;
 
-    sb_days = SelectBox(scale, width, height, position, "0", f_font, offset);
+    sb_days = SelectBox(scale, width, height, position, "0", f_font, { 55.f, 15.f });
     
     position.y += buttons_margin;
-    sb_pause = SelectBox(scale, width, height, position, s_play, f_font, offset);
+    sb_pause = SelectBox(scale, width, height, position, s_play, f_font, { 40.5f, 15.f });
 
     position.y += buttons_margin;
-    sb_grid = SelectBox(scale, width, height, position, s_add_grid, f_font, offset);;
+    sb_grid = SelectBox(scale, width, height, position, s_add_grid, f_font, { 10.f, 15.f });
     
     position.y += buttons_margin;
     sb_switch_mode = SelectBox(scale, width, height, position, s_switch_colors, f_font, offset);;
@@ -37,10 +37,10 @@ void GameScene::onInit()
     sb_reset = SelectBox(scale, width, height, position, s_reset, f_font, offset);
 
     position.y += buttons_margin;
-    sb_main_menu = SelectBox(scale, width, height, position, s_main_menu, f_font, offset);
+    sb_main_menu = SelectBox(scale, width, height, position, s_main_menu, f_font, { 35.f, 2.5f });
 
     position.y += buttons_margin;
-    sb_exit = SelectBox(scale, width, height, position, s_exit, f_font, offset);
+    sb_exit = SelectBox(scale, width, height, position, s_exit, f_font, { 47.5f, 15.f });
 
     sp_poblation.setPosition(sf::Vector2f(1250, 10));
     sp_births.setPosition(sf::Vector2f(1250, 310));

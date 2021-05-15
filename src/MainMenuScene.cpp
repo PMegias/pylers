@@ -14,10 +14,9 @@ void MainMenu::onInit()
 	float w = 150, h = 75;
     float buttons_margin = 75.f;
 	sf::Vector2f position = { 1050.f, 85.f };
-    sf::Vector2f offset = { 20.f, 5.f };
-	sb_play = SelectBox(1.f, w, h, position, s_play, f_font, offset);
+	sb_play = SelectBox(1.f, w, h, position, s_play, f_font, { 40.5f, 15.f });
 	position.y += buttons_margin * 5;
-	sb_exit = SelectBox(1.f, w, h, position, s_exit, f_font, offset);
+	sb_exit = SelectBox(1.f, w, h, position, s_exit, f_font, { 47.5f, 15.f });
 
 	lg_setup.set_grid(true);
 }
