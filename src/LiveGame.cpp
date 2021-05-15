@@ -72,14 +72,15 @@ b_matrix LiveGame::update_state()
     i_population = 0;
     b_matrix new_state(N, b_vector(M, false));
     int j;
-    //#pragma omp parallel for private(j)
-    #pragma omp simd private(j)
+    #pragma omp parallel for private(j)
+    //#pragma omp simd private(j)
     for (int i = 0; i < N; ++i) {
         for (j = 0; j < M; ++j) {
             //std::cout << omp_get_thread_num() << std::endl;
             new_state[i][j] = check_rules(i, j);
         }
     }
+    
     return new_state;
 }
 

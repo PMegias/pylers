@@ -145,13 +145,8 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     pobl_file << std::to_string(days) + ",";
     pobl_file << std::to_string(population) + "\n";
     pobl_file.close();
-<<<<<<< HEAD
-    argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png;
-    int ret = system(argv.c_str());
-=======
     argv = "gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png;
     system(argv.c_str());
->>>>>>> ac827f2600503be409396e6227e90fd4ea6376e1
 
 
     //Datos de Nacis-mientos
@@ -159,13 +154,8 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     naci_file << std::to_string(days) + ",";
     naci_file << std::to_string(naci) + "\n";
     naci_file.close();
-<<<<<<< HEAD
     argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png ;
-    ret = system(argv.c_str());
-=======
-    argv = "gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png ;
     system(argv.c_str());
->>>>>>> ac827f2600503be409396e6227e90fd4ea6376e1
 
 
     // Datos de Morticiones
@@ -173,13 +163,8 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     mort_file << std::to_string(days) + ",";
     mort_file << std::to_string(mort) + "\n";
     mort_file.close();
-<<<<<<< HEAD
     argv = "/bin/gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png ;
-    ret = system(argv.c_str());
-=======
-    argv = "gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png ;
     system(argv.c_str());
->>>>>>> ac827f2600503be409396e6227e90fd4ea6376e1
 
 }
 

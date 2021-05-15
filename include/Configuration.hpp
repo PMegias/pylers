@@ -23,12 +23,6 @@ const int SIMULATION_WIDTH = 1000;
 const int N = 100;
 const int M = 100;
 
-// int population;
-// int birth;
-// int death;
-// int dias;
-// bool show_grid;
-
 const std::string s_pause = "Pause";
 const std::string s_resume = "Resume";
 
