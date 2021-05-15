@@ -1,5 +1,5 @@
 #include "Scene.hpp"
-/* #include "MainMenu.h" */
+#include "MainMenuScene.hpp"
 #include "GameScene.hpp"
 /* #include "PauseScene.h" */
         
@@ -52,9 +52,9 @@ Scene* Scene::create(Game& game, Scene::SceneType sceneType)
 
     switch (sceneType)
     {
-    /* case Scene::MAIN_MENU: */
-    /*     scene = new MainMenu(game); */
-    /*     break; */
+    case Scene::MAIN_MENU:
+        scene = new MainMenu(game);
+        break;
     case Scene::GAME:
         scene = new GameScene(game);
         break;

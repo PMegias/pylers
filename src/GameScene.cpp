@@ -36,6 +36,12 @@ void GameScene::onInit()
     position.y += buttons_margin;
     sb_reset = SelectBox(scale, width, height, position, s_reset, f_font, offset);
 
+    position.y += buttons_margin;
+    sb_main_menu = SelectBox(scale, width, height, position, s_main_menu, f_font, offset);
+
+    position.y += buttons_margin;
+    sb_exit = SelectBox(scale, width, height, position, s_exit, f_font, offset);
+
     sp_poblation.setPosition(sf::Vector2f(1250, 10));
     sp_births.setPosition(sf::Vector2f(1250, 310));
     sp_deaths.setPosition(sf::Vector2f(1250, 610));
@@ -66,6 +72,8 @@ void GameScene::processEvent(const sf::Event& event, sf::RenderWindow& window)
     if (sb_grid.clicked(window, event)) lg_game.set_grid(!lg_game.get_grid());
     if (sb_switch_mode.clicked(window, event)) lg_game.set_epilepsia(!lg_game.get_epilepsia());
     if (sb_reset.clicked(window, event)) lg_game.reset();
+    if (sb_main_menu.clicked(window, event)) g_game.setActiveScene(Scene::create(g_game, Scene::MAIN_MENU));
+    if (sb_exit.clicked(window, event)) end();
 
     lg_game.processEvent(event, window);
 }
@@ -88,6 +96,8 @@ void GameScene::draw(sf::RenderWindow& window)
     sb_grid.draw(window);
     sb_switch_mode.draw(window);
     sb_reset.draw(window);
+    sb_main_menu.draw(window);
+    sb_exit.draw(window);
 
     sf::Texture texturep, textureb, textured;
     if (texturep.loadFromFile(pobl_png)) {

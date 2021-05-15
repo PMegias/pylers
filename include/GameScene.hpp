@@ -37,6 +37,8 @@ private:
     SelectBox   sb_grid;
     SelectBox   sb_switch_mode;
     SelectBox   sb_reset;
+    SelectBox   sb_main_menu;
+    SelectBox   sb_exit;
 
     bool        b_pause;
     bool        b_lost_focus;
