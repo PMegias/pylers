@@ -23,10 +23,10 @@ All other live cells die in the next generation. Similarly, all other dead cells
 
 ######################## TODO
 
-- 2 escenas: configuracion + simulacion --> ?
-- recolectar info poblacion //DONE
-- plot de datos  --< bonitez de los plots?>
-- Control tiempos entrada-salida del calculo paralelo
+* [X] 2 escenas: configuracion + simulacion --> ?
+* [X] recolectar info poblacion
+* [X] plot de datos  --< bonitez de los plots?>
+* [ ] Control tiempos entrada-salida del calculo paralelo
 
 # POBLACION.CSV
 iteracion,# poblacion
