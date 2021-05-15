@@ -1,4 +1,5 @@
 #include "LiveGame.hpp"
+#include "utils.hpp"
 #include <SFML/Graphics.hpp>
 #include <random>
 
@@ -131,6 +132,11 @@ void LiveGame::reset()
 {
     bm_state = b_matrix(N, b_vector(M, false));
     i_days = 0;
+
+    // Ponemos 10 rows con 0,0 para que en los plots no se vean cosas raras
+    add_zero_dataset(pobl_csv);
+    add_zero_dataset(naci_csv);
+    add_zero_dataset(mort_csv);
 }
 
 bool LiveGame::get_grid() const
