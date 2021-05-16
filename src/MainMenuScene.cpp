@@ -27,7 +27,9 @@ void MainMenu::onInit()
     aux.x += w / 2;
     aux.y -= h / 2;
     sb_random_value = SelectBox(1, h, h, aux, std::to_string(i_random) + "%", f_font, { 15.f, 15.f });
-	position.y += buttons_margin * 4;
+    position.y += buttons_margin * 2;
+    sb_reset = SelectBox(1, w, h, position, s_reset, f_font, { 30.f, 15.f });
+	position.y += buttons_margin * 2;
 	sb_exit = SelectBox(1.f, w, h, position, s_exit, f_font, { 47.5f, 15.f });
 
 	lg_setup.set_grid(true);
@@ -62,6 +64,7 @@ void MainMenu::draw(sf::RenderWindow& window)
     sb_random_up.draw(window);
     sb_random_down.draw(window);
     sb_random_value.draw(window);
+    sb_reset.draw(window);
 	sb_exit.draw(window);
 }
 
@@ -76,6 +79,7 @@ void MainMenu::processEvent(const sf::Event& event, sf::RenderWindow& window)
     else if (sb_random.clicked(window, event)) lg_setup.randomize_state(i_random);
     else if (sb_random_up.clicked(window, event) && i_random < 100) i_random += 10;
     else if (sb_random_down.clicked(window, event) && i_random > 0) i_random -= 10;
+    else if (sb_reset.clicked(window, event)) lg_setup.reset();
 	else if (sb_exit.clicked(window, event))
 		end();
 

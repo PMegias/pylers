@@ -29,6 +29,8 @@ private:
     SelectBox   sb_random_up;
     SelectBox   sb_random_down;
     SelectBox   sb_random_value;
+    SelectBox   sb_random_reset;
+    SelectBox   sb_reset;
 	SelectBox	sb_exit;
 
     int         i_random;
