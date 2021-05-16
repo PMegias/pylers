@@ -102,7 +102,7 @@ void LiveGame::processEvent(const sf::Event& event, sf::RenderWindow& window)
             x /= SIMULATION_WIDTH / N;
             y /= SIMULATION_HEIGHT / M;
 
-            bm_state[x][y] = true;
+            bm_state[x][y] = !bm_state[x][y];
         }
     }
 }
