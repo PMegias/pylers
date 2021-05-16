@@ -13,11 +13,11 @@ LiveGame::LiveGame()
     bm_state = b_matrix(N, b_vector(M, false));
     rsm_squares = rs_matrix(N, rs_vector(M, sf::RectangleShape(sf::Vector2f(SIMULATION_WIDTH / N, SIMULATION_HEIGHT / M))));
 
-    // for (int i = 0; i < N; ++i) {
-    //     for (int j = 0; j < M; ++j) {
-    //         if (i == 0 || j == 0) bm_state[i][j] = true;
-    //     }
-    // }
+     for (int i = 0; i < N; ++i) {
+         for (int j = 0; j < M; ++j) {
+             if (i == 0 || j == 0) bm_state[i][j] = true;
+         }
+     }
 
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < M; ++j) {
@@ -35,21 +35,29 @@ LiveGame::~LiveGame()
 int mod (int a)
 { //mas ifes :3
    int ret = a % N;
-   if(ret < 0)
+   /*if(ret < 0)
      ret+=N;
-   return ret;
-
-   // return (ret < 0) ? ret + N : ret; 
+   return ret;*/  
+   //int sign = (-(ret < 0) + 1);  // if v < 0 then 0, else 1. 
+   return (-(ret < 0) + 1)*(ret) + (1-(-(ret < 0) + 1))*(N-1);
 }
 
 bool LiveGame::check_rules(int x, int y)
 {
     int cont = 0;
+    int aux;
     
     for(int i = y-1; i <= y+1; ++i){
-        if(bm_state[mod(x-1)][mod(i)]) cont++;
-        if(bm_state[mod(x)][mod(i)]) cont++;
-        if(bm_state[mod(x+1)][mod(i)]) cont++;
+        aux = mod(i);
+        /*
+        if(bm_state[mod(x-1)][aux]) cont++;
+        if(bm_state[mod(x)][aux]) cont++;
+        if(bm_state[mod(x+1)][aux]) cont++;
+        */
+        cont += (bm_state[mod(x-1)][aux]);
+        cont += (bm_state[mod(x)][aux]);
+        cont += (bm_state[mod(x+1)][aux]);
+        
     }
 
     if(!bm_state[x][y] and cont == 3){
@@ -65,18 +73,6 @@ bool LiveGame::check_rules(int x, int y)
     }
     return false;
     
-    /* if(!bm_state[x][y] and cont == 3){ */
-    /*     i_birth++; */
-    /*     i_population++; */
-    /*     return true; */
-    /* } else { */
-    /*     if(bm_state[x][y] and (cont==3 or cont==4)) { */
-    /*         i_population++; */
-    /*         return true; */
-    /*     } */
-    /*     else i_death++; */
-    /* } */
-    /* return false; */
 }
 
 b_matrix LiveGame::update_state()
@@ -86,11 +82,9 @@ b_matrix LiveGame::update_state()
     i_population = 0;
     b_matrix new_state(N, b_vector(M, false));
     int j;
-    #pragma omp parallel for private(j)
-    //#pragma omp simd private(j)
+    #pragma omp parallel for private (j) schedule (static)
     for (int i = 0; i < N; ++i) {
         for (j = 0; j < M; ++j) {
-            //std::cout << omp_get_thread_num() << std::endl;
             new_state[i][j] = check_rules(i, j);
         }
     }

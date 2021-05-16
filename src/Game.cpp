@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include <fstream>
 #include <iostream>
+#include <chrono>
 
 Game::Game() : s_activeScene(nullptr), s_backgroundScene(nullptr) {} 
 
@@ -32,8 +33,9 @@ void Game::init()
 }   
         
 void Game::mainLoop()
-{       
+{   
     while (rw_window.isOpen()) {
+        //auto start_all = std::chrono::system_clock::now();
         if (cl_clock.getElapsedTime().asSeconds() >= 1.f / FPS) {
             b_redraw = true;
             cl_clock.restart();
@@ -42,12 +44,20 @@ void Game::mainLoop()
         events();
 
         if (b_redraw) {
+            //auto start = std::chrono::system_clock::now();
             update();
+            //auto end= std::chrono::system_clock::now();
+            //std::chrono::duration<float,std::milli> duration = end- start;
+            //std::cout <<"Duracion cálculo --> " + std::to_string(duration.count()) + "ms" << std::endl;
             draw();
             b_redraw = false;
+            
         }
 
         scene();
+        //auto end_all = std::chrono::system_clock::now();
+        //std::chrono::duration<float,std::milli> duration_all = end_all - start_all;
+        //std::cout <<"EPOCA --> " + std::to_string(duration_all.count()) + "ms" << std::endl;
     }
 }
 

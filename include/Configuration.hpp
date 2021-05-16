@@ -10,7 +10,7 @@ const std::string TITLE = "Te liveo la vida";
 
 const std::string FONT_FILE = "res/fonts/font.ttf";
 
-const float FPS = 30.f;
+const float FPS = 15.f;
 
 const int WINDOW_WIDTH = 1900;
 const int WINDOW_HEIGHT = 1000;
@@ -18,8 +18,8 @@ const int WINDOW_HEIGHT = 1000;
 const int SIMULATION_HEIGHT = 1000;
 const int SIMULATION_WIDTH = 1000;
 
-const int N = 10;
-const int M = 10;
+const int N = 100;
+const int M = 100;
 
 const std::string s_pause = "Pause";
 const std::string s_resume = "Resume";
