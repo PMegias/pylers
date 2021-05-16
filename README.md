@@ -9,6 +9,8 @@ Pedro Megias
 
 # Project: Conway's Game of Life
 
+This project is an idea proposed for the HackUPC 2021, it consist on a simulation of Conway's Game of Life because we thought it could be fun for our first hackathon together and not hard enough to get so stressed we give up.
+
 The universe of the Game of Life is an infinite, two-dimensional grid of square cells, each of which is in one of two possible states, live or dead, (or populated and unpopulated, respectively). Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, a cycle occurs, following the next rules:
 
   - Any live cell with fewer than two live neighbours dies, as if by underpopulation.
