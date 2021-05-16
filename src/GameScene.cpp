@@ -159,6 +159,7 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
 
     std::string argv;
     int size = lg_game.get_size();
+    int ret;
     std::string max_population = std::to_string(size * size);
     // Plots de poblacion DATOS
     std::ofstream pobl_file(pobl_csv, std::ofstream::out | std::ofstream::app);
@@ -166,7 +167,7 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     pobl_file << std::to_string(population) + "\n";
     pobl_file.close();
     argv = "gnuplot -c " + PLOTTER_FILE + " " + pobl_ftitle + " " + pobl_csv + " " + pobl_png + " " + max_population;
-    system(argv.c_str());
+    ret = system(argv.c_str());
 
 
     //Datos de Nacis-mientos
@@ -175,7 +176,7 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     naci_file << std::to_string(naci) + "\n";
     naci_file.close();
     argv = "gnuplot -c " + PLOTTER_FILE + " " + naci_ftitle + " " + naci_csv + " " + naci_png + " " + max_population;
-    system(argv.c_str());
+    ret = system(argv.c_str());
 
 
     // Datos de Morticiones
@@ -184,8 +185,7 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
     mort_file << std::to_string(mort) + "\n";
     mort_file.close();
     argv = "gnuplot -c " + PLOTTER_FILE + " " + mort_ftitle + " " + mort_csv + " " + mort_png + " " + max_population;
-    system(argv.c_str());
-
+    ret = system(argv.c_str());
 }
 
 void GameScene::set_live_game(b_matrix& lg)
