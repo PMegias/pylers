@@ -78,6 +78,17 @@ void MainMenu::draw(sf::RenderWindow& window)
     sb_board_size_down.draw(window);
     sb_reset.draw(window);
 	sb_exit.draw(window);
+
+    sf::Text text;
+    text.setFont(f_font);
+    text.setFillColor(sf::Color::White);
+    text.setScale(5, 5);
+    text.move({ 1300.f, 500.f });
+    text.setString("game\n of");
+    window.draw(text);
+    text.setString("life");
+    text.move({ 25.f, 275.f });
+    window.draw(text);
 }
 
 void MainMenu::processEvent(const sf::Event& event, sf::RenderWindow& window)
