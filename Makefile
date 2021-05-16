@@ -4,15 +4,10 @@ CFLAGS = -O3 -fopenmp
 INCLUDE = include
 SRC = src
 
-all: test build
-
-test: main.cpp $(SRC)/SelectBox.cpp
-	$(CXX) $(CFLAGS) -o $@ $^ $(LIBS) -I$(INCLUDE)
+all: build
 
 build: $(SRC)/*.cpp
 	$(CXX) $(CFLAGS) -o $@ $^ $(LIBS) -I$(INCLUDE)
 
 clean:
-	rm test build
-
-     
+	rm build
