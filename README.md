@@ -1,32 +1,24 @@
-# pylers
-Los pyl·lers que te pyl·lean el pyl·lon with Serpiente
 
-The universe of the Game of Life is an infi
-nite, two-dimensional orthogonal grid of square cells, each of which is in one of two possible states, live or dead, (or populated and unpopulated, respectively). Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions occur:
+# HackUPC 2021
+# Team: Pyl·lers
+Carlos Bayona
+Jonathan Calderon
+Pedro Megias
 
-Te hago la vida, te hago le conwey! (Darwin would be praut)
+# Project: Conway's Game of Life
 
-Normas del juego de la vida:
-  - Si estas vivo y tienes menos de 2 vecinos o mas de 3 vecinos vivos, mueres
-  - Si estas vivo y tienes 2 o 3 vecinos vivos, vives
-  - Si estas muerta y tienes 3 vecinos vivos, se vuelve una celda viva
+The universe of the Game of Life is an infinite, two-dimensional grid of square cells, each of which is in one of two possible states, live or dead, (or populated and unpopulated, respectively). Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, a cycle occurs, following the next rules:
+
+  - Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+  - Any live cell with two or three live neighbours lives on to the next generation.
+  - Any live cell with more than three live neighbours dies, as if by overpopulation.
+  - Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
 These rules, which compare the behavior of the automaton to real life, can be condensed into the following:
 
-Any live cell with two or three live neighbours survives.
-Any dead cell with three live neighbours becomes a live cell.
-All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+  - Any live cell with two or three live neighbours survives.
+  - Any dead cell with three live neighbours becomes a live cell.
+  - All other live cells die in the next generation. Similarly, all other dead cells stay dead.
 
 
 
-
-
-######################## TODO
-
-* [X] 2 escenas: configuracion + simulacion --> ?
-* [X] recolectar info poblacion
-* [X] plot de datos  --< bonitez de los plots?>
-* [X] Control tiempos entrada-salida del calculo paralelo
-
-# POBLACION.CSV
-iteracion,# poblacion
