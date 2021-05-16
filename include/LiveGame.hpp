@@ -48,7 +48,7 @@ public:
     void set_state(int, int, bool);
     void set_state(const b_matrix& );
 
-    void randomize_state();
+    void randomize_state(int);
 
 private:
 

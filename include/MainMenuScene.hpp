@@ -26,7 +26,12 @@ private:
 
 	SelectBox   sb_play;
     SelectBox   sb_random;
+    SelectBox   sb_random_up;
+    SelectBox   sb_random_down;
+    SelectBox   sb_random_value;
 	SelectBox	sb_exit;
+
+    int         i_random;
 
     LiveGame    lg_setup;
 };

@@ -13,7 +13,7 @@ void GameScene::onInit()
 
     f_font.loadFromFile(FONT_FILE);
 
-    b_pause = true;
+    b_pause = false;
     b_lost_focus = false;
 
     float scale = 1.f;
