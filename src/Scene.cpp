@@ -16,6 +16,7 @@ void Scene::draw(sf::RenderWindow&) {}
 void Scene::processEvent(const sf::Event&, sf::RenderWindow&) {}
 
 void Scene::set_live_game(b_matrix& ) {}
+void Scene::set_epilepsia(bool) {}
         
 void Scene::init()
 {           

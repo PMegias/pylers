@@ -10,6 +10,9 @@ const std::string TITLE = "Te liveo la vida";
 
 const std::string FONT_FILE = "res/fonts/font.ttf";
 
+const std::string BACKGROUND_FILE = "res/img/biene_fondo.png";
+const std::string BACKGROUND_FILE_SMALL = "res/img/biene_fondo_100x100.png";
+
 const float FPS = 15.f;
 
 const int WINDOW_WIDTH = 1900;
@@ -18,8 +21,8 @@ const int WINDOW_HEIGHT = 1000;
 const int SIMULATION_HEIGHT = 1000;
 const int SIMULATION_WIDTH = 1000;
 
-const int N = 100;
-const int M = 100;
+const int N = 10;
+const int M = 10;
 
 const std::string s_pause = "Pause";
 const std::string s_resume = "Resume";

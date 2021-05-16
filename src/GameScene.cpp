@@ -72,10 +72,13 @@ void GameScene::processEvent(const sf::Event& event, sf::RenderWindow& window)
     if (sb_switch_mode.clicked(window, event)) lg_game.set_epilepsia(!lg_game.get_epilepsia());
     if (sb_reset.clicked(window, event)) lg_game.reset();
     if (sb_main_menu.clicked(window, event)) {
+        b_pause = true;
         b_matrix state = lg_game.get_full_state();
+        bool epi = lg_game.get_epilepsia();
         auto scene = Scene::create(g_game, Scene::MAIN_MENU);
         g_game.setActiveScene(scene);
         scene->set_live_game(state);
+        scene->set_epilepsia(epi);
     }
     if (sb_exit.clicked(window, event)) end();
 
@@ -155,7 +158,8 @@ void GameScene::update()
 void GameScene::generate_plots(int days, int population, int naci, int mort){
 
     std::string argv;
-    std::string max_population = std::to_string(N * N);
+    int size = lg_game.get_size();
+    std::string max_population = std::to_string(size * size);
     // Plots de poblacion DATOS
     std::ofstream pobl_file(pobl_csv, std::ofstream::out | std::ofstream::app);
     pobl_file << std::to_string(days) + ",";
@@ -186,5 +190,11 @@ void GameScene::generate_plots(int days, int population, int naci, int mort){
 
 void GameScene::set_live_game(b_matrix& lg)
 {
+    lg_game.resize(lg.size(), lg.size());
     lg_game.set_state(lg);
+}
+
+void GameScene::set_epilepsia(bool value)
+{
+    lg_game.set_epilepsia(value);
 }

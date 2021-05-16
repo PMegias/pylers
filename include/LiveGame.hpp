@@ -26,6 +26,8 @@ public:
     LiveGame();
     ~LiveGame();
 
+    void resize(int, int);
+
     void processEvent(const sf::Event&, sf::RenderWindow&);
     void draw(sf::RenderWindow&);
     void update();
@@ -50,6 +52,8 @@ public:
 
     void randomize_state(int);
 
+    int get_size() const;
+
 private:
 
     b_matrix bm_state;
@@ -62,6 +66,9 @@ private:
     int i_birth;
     int i_death;
     int i_days;
+
+    sf::Texture tx_background;
+    sf::Sprite sp_background;
 };
 
 #endif // LIVE_GAME_HPP

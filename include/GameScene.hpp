@@ -26,6 +26,7 @@ public:
     void        generate_plots(int, int, int, int);
 
     void        set_live_game(b_matrix& ) final;
+    void        set_epilepsia(bool) final;
 
 private:
 

@@ -10,21 +10,16 @@ LiveGame::LiveGame()
 
     i_population = i_birth = i_death = i_days = 0;
 
-    bm_state = b_matrix(N, b_vector(M, false));
-    rsm_squares = rs_matrix(N, rs_vector(M, sf::RectangleShape(sf::Vector2f(SIMULATION_WIDTH / N, SIMULATION_HEIGHT / M))));
+    tx_background.loadFromFile(BACKGROUND_FILE);
+    /* tx_background.loadFromFile(BACKGROUND_FILE_SMALL); */
+    tx_background.setSmooth(true);
+    /* tx_background.setRepeated(true); */
+    
+    /* sf::IntRect bounds(sf::FloatRect(0.f, 0.f, 1000.f, 1000.f)); */
+    /* sp_background = sf::Sprite(tx_background, bounds); */
+    sp_background = sf::Sprite(tx_background);
 
-    // for (int i = 0; i < N; ++i) {
-    //     for (int j = 0; j < M; ++j) {
-    //         if (i == 0 || j == 0) bm_state[i][j] = true;
-    //     }
-    // }
-
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < M; ++j) {
-            rsm_squares[i][j].setOutlineColor(sf::Color::White);
-            rsm_squares[i][j].setPosition(sf::Vector2f(i * SIMULATION_WIDTH / N, j * SIMULATION_HEIGHT / M));
-        }
-    }
+    resize(N, M);
 }
 
 LiveGame::~LiveGame()
@@ -32,14 +27,27 @@ LiveGame::~LiveGame()
 
 }
 
-int mod (int a)
+int mod (int a, int n)
 { //mas ifes :3
-   int ret = a % N;
+   int ret = a % n;
    if(ret < 0)
-     ret+=N;
+     ret+=n;
    return ret;
 
    // return (ret < 0) ? ret + N : ret; 
+}
+
+void LiveGame::resize(int n, int m)
+{
+    bm_state = b_matrix(n, b_vector(m, false));
+    rsm_squares = rs_matrix(n, rs_vector(m, sf::RectangleShape(sf::Vector2f(SIMULATION_WIDTH / n, SIMULATION_HEIGHT / m))));
+    
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            rsm_squares[i][j].setOutlineColor(sf::Color::White);
+            rsm_squares[i][j].setPosition(sf::Vector2f(i * SIMULATION_WIDTH / n, j * SIMULATION_HEIGHT / m));
+        }
+    }
 }
 
 bool LiveGame::check_rules(int x, int y)
@@ -47,9 +55,9 @@ bool LiveGame::check_rules(int x, int y)
     int cont = 0;
     
     for(int i = y-1; i <= y+1; ++i){
-        if(bm_state[mod(x-1)][mod(i)]) cont++;
-        if(bm_state[mod(x)][mod(i)]) cont++;
-        if(bm_state[mod(x+1)][mod(i)]) cont++;
+        if(bm_state[mod(x-1, bm_state.size())][mod(i, bm_state.size())]) cont++;
+        if(bm_state[mod(x, bm_state.size())][mod(i, bm_state.size())]) cont++;
+        if(bm_state[mod(x+1, bm_state.size())][mod(i, bm_state.size())]) cont++;
     }
 
     if(!bm_state[x][y] and cont == 3){
@@ -84,12 +92,12 @@ b_matrix LiveGame::update_state()
     i_birth = 0;
     i_death = 0;
     i_population = 0;
-    b_matrix new_state(N, b_vector(M, false));
+    b_matrix new_state(bm_state.size(), b_vector(bm_state[0].size(), false));
     int j;
     #pragma omp parallel for private(j)
     //#pragma omp simd private(j)
-    for (int i = 0; i < N; ++i) {
-        for (j = 0; j < M; ++j) {
+    for (int i = 0; i < (int)bm_state.size(); ++i) {
+        for (j = 0; j < (int)bm_state[i].size(); ++j) {
             //std::cout << omp_get_thread_num() << std::endl;
             new_state[i][j] = check_rules(i, j);
         }
@@ -105,8 +113,8 @@ void LiveGame::processEvent(const sf::Event& event, sf::RenderWindow& window)
         int y = event.mouseButton.y;
 
         if (x <= SIMULATION_WIDTH) {
-            x /= SIMULATION_WIDTH / N;
-            y /= SIMULATION_HEIGHT / M;
+            x /= SIMULATION_WIDTH / bm_state.size();
+            y /= SIMULATION_HEIGHT / bm_state[0].size();
 
             bm_state[x][y] = !bm_state[x][y];
         }
@@ -115,20 +123,19 @@ void LiveGame::processEvent(const sf::Event& event, sf::RenderWindow& window)
 
 void LiveGame::draw(sf::RenderWindow& window)
 {
-    int r = rand() % 256;
-    int g = rand() % 256;
-    int b = rand() % 256;
-    sf::Color random_color = sf::Color(r, g, b);
+    if (b_modo_epilepsia_activado) window.draw(sp_background);
 
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < M; ++j) {
+    for (int i = 0; i < bm_state.size(); ++i) {
+        for (int j = 0; j < bm_state[i].size(); ++j) {
             if (b_show_grid) rsm_squares[i][j].setOutlineThickness(1.f);
             else rsm_squares[i][j].setOutlineThickness(0.f);
 
             if (bm_state[i][j]) {
-                if (b_modo_epilepsia_activado) rsm_squares[i][j].setFillColor(random_color);
+                if (b_modo_epilepsia_activado) rsm_squares[i][j].setFillColor(sf::Color::Transparent);
                 else rsm_squares[i][j].setFillColor(sf::Color::White);
             } else rsm_squares[i][j].setFillColor(sf::Color::Black);
+
+            /* if (b_modo_epilepsia_activado) rsm_squares[i][j].setFillColor(sf::Color::Transparent); */
 
             window.draw(rsm_squares[i][j]);
         }
@@ -143,7 +150,7 @@ void LiveGame::update()
 
 void LiveGame::reset()
 {
-    bm_state = b_matrix(N, b_vector(M, false));
+    bm_state = b_matrix(bm_state.size(), b_vector(bm_state[0].size(), false));
     i_days = 0;
 
     // Ponemos 10 rows con 0,0 para que en los plots no se vean cosas raras
@@ -214,9 +221,14 @@ void LiveGame::set_state(const b_matrix& state)
 
 void LiveGame::randomize_state(int threshold)
 {
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < M; ++j) {
+    for (int i = 0; i < (int)bm_state.size(); ++i) {
+        for (int j = 0; j < (int)bm_state[i].size(); ++j) {
             bm_state[i][j] = ((rand() % 100) + 1) <= threshold;
         }
     }
+}
+
+int LiveGame::get_size() const
+{
+    return bm_state.size();
 }

@@ -26,6 +26,7 @@ public:
     virtual void        processEvent(const sf::Event&, sf::RenderWindow&);
 
     virtual void        set_live_game(b_matrix& );
+    virtual void        set_epilepsia(bool);
 
     void                init();
     void                pause();
