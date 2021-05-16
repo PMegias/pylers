@@ -27,6 +27,6 @@ These rules, which compare the behavior of the automaton to real life, can be co
 
 The project is build mainly with **love** and C++. The graphic part of the project leans on the SFML library a lot, but it was one of the main challenges for us. Also we use parallelization techniques, using OMP, for improve the performance of the display and avoid all types of performance issues like fps drops and more. Finally the project also uses gnuplot to generate some plots with useful and interesting information on real time within the game windows, giving the opportunity to the user to see how his game is advancing.
 
-We hope to extend all this work creating new rules for the cells to stay alive or die and also implement a new mode called The Game of War consisting of two bands fighting each other with exclusive rules.
+We hope to extend all this work creating new rules for the cells to stay alive or die and also implement a new mode called The Game of War consisting of two teams fighting each other with exclusive rules.
 
 
