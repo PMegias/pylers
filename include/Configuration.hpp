@@ -6,7 +6,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-const std::string TITLE = "Te liveo la vida";
+const std::string TITLE = "Te liveo la vidae";
 
 const std::string FONT_FILE = "res/fonts/font.ttf";
 
