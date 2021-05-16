@@ -6,7 +6,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-const std::string TITLE = "Te liveo la vida";
+const std::string TITLE = "Te liveo la vidae";
 
 const std::string FONT_FILE = "res/fonts/font.ttf";
 
@@ -45,14 +45,17 @@ const std::string PLOT_FILE = "/tmp/plot.png";
 
 const std::string pobl_csv = "res/poblacion.csv";
 const std::string pobl_png = "res/poblacion.png";
-const std::string pobl_ftitle = "poblacion";
+// const std::string pobl_ftitle = "poblacion";
+const std::string pobl_ftitle = "poblation";
 
 const std::string naci_csv = "res/nacimiento.csv";
 const std::string naci_png = "res/nacimiento.png";
-const std::string naci_ftitle = "nacimiento";
+// const std::string naci_ftitle = "nacimiento";
+const std::string naci_ftitle = "births";
 
 const std::string mort_csv = "res/morticion.csv";
 const std::string mort_png = "res/morticion.png";
-const std::string mort_ftitle = "morticion";
+// const std::string mort_ftitle = "morticion";
+const std::string mort_ftitle = "deaths";
 
 #endif // CONFIGURATION_HPP

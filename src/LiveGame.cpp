@@ -30,11 +30,11 @@ LiveGame::~LiveGame()
 int mod (int a, int n)
 { //mas ifes :3
    int ret = a % n;
-   if(ret < 0)
-     ret+=n;
-   return ret;
-
-   // return (ret < 0) ? ret + N : ret; 
+   /*if(ret < 0)
+     ret+=N;
+   return ret;*/  
+   //int sign = (-(ret < 0) + 1);  // if v < 0 then 0, else 1. 
+   return (-(ret < 0) + 1)*(ret) + (1-(-(ret < 0) + 1))*(n-1);
 }
 
 void LiveGame::resize(int n, int m)
@@ -53,6 +53,7 @@ void LiveGame::resize(int n, int m)
 bool LiveGame::check_rules(int x, int y)
 {
     int cont = 0;
+    int aux;
     
     for(int i = y-1; i <= y+1; ++i){
         if(bm_state[mod(x-1, bm_state.size())][mod(i, bm_state.size())]) cont++;
@@ -73,18 +74,6 @@ bool LiveGame::check_rules(int x, int y)
     }
     return false;
     
-    /* if(!bm_state[x][y] and cont == 3){ */
-    /*     i_birth++; */
-    /*     i_population++; */
-    /*     return true; */
-    /* } else { */
-    /*     if(bm_state[x][y] and (cont==3 or cont==4)) { */
-    /*         i_population++; */
-    /*         return true; */
-    /*     } */
-    /*     else i_death++; */
-    /* } */
-    /* return false; */
 }
 
 b_matrix LiveGame::update_state()

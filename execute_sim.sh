@@ -1,4 +1,4 @@
-export OMP_NUM_THREADS=3
+export OMP_NUM_THREADS=2
 
 make clean
 make build

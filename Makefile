@@ -14,3 +14,5 @@ build: $(SRC)/*.cpp
 
 clean:
 	rm test build
+
+     
