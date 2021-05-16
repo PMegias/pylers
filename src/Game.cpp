@@ -23,8 +23,8 @@ void Game::init()
     rw_window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE, sf::Style::Titlebar | sf::Style::Close);
     rw_window.setKeyRepeatEnabled(false);
     
-    /* Scene* scene = Scene::create(*this, Scene::MAIN_MENU); */
-    Scene* scene = Scene::create(*this, Scene::GAME);
+    Scene* scene = Scene::create(*this, Scene::MAIN_MENU);
+    /* Scene* scene = Scene::create(*this, Scene::GAME); */
     setActiveScene(scene);
 
     b_redraw = true;

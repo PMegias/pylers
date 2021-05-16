@@ -205,3 +205,12 @@ void LiveGame::set_state(const b_matrix& state)
 {
     bm_state = state;
 }
+
+void LiveGame::randomize_state(int threshold)
+{
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < M; ++j) {
+            bm_state[i][j] = ((rand() % 100) + 1) <= threshold;
+        }
+    }
+}

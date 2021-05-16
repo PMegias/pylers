@@ -1,13 +1,14 @@
 # gnuplot -c TITLE DATASET PNGNAME
 
 dataset=ARG2
+N=ARG4
 
 # set title ARG1
 # set key autotitle columnhead
 set datafile sep ','
 set xtics 1
-set ytics 1000
-set yrange [0:10000]
+set ytics N/10
+set yrange [0:N]
 
 set xlabel 'iteration' tc rgb 'white'
 set ylabel '# '.ARG1 tc rgb 'white'

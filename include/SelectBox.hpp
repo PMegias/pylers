@@ -14,6 +14,7 @@ public:
 	void				draw(sf::RenderWindow&);
 
 	void				set_text(std::string);
+    void                set_offset(sf::Vector2f);
 
 private:
 	sf::RectangleShape	rs_shape;

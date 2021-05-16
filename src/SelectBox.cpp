@@ -50,3 +50,7 @@ bool SelectBox::clicked(sf::RenderWindow& window, const sf::Event& event)
 void SelectBox::set_text(string text) {
 	s_text = text;
 }
+
+void SelectBox::set_offset(sf::Vector2f offset) {
+    v2f_offset = offset;
+}
